@@ -10,6 +10,7 @@ import {
   registerUserApi,
   updateUserApi
 } from '../../utils/burger-api';
+import { useNavigate } from 'react-router-dom';
 
 export type TUserState = {
   userData: TUser | null;

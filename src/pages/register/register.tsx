@@ -16,8 +16,11 @@ export const Register: FC = () => {
     e.preventDefault();
     dispatch(
       registerUserThunk({ email: email, name: userName, password: password })
-    );
-    navigate('/login');
+    ).then(() => {
+      if (userError == null) {
+        navigate('/');
+      }
+    });
   };
 
   return (

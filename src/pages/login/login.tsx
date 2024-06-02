@@ -13,8 +13,11 @@ export const Login: FC = () => {
 
   const handleSubmit = (e: SyntheticEvent) => {
     e.preventDefault();
-    dispatch(loginUserThunk({ email: email, password: password }));
-    !user.isLoading ?? navigate('/');
+    dispatch(loginUserThunk({ email: email, password: password })).then(() => {
+      if (user.error == null) {
+        navigate('/');
+      }
+    });
   };
 
   return (
