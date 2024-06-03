@@ -155,6 +155,8 @@ export const registerUserApi = (data: TRegisterData) =>
     .then((data) => {
       if (data?.success) {
         setCookie('accessToken', data.accessToken);
+        setCookie('user.email', data.user.email);
+        setCookie('user.name', data.user.name);
         localStorage.setItem('refreshToken', data.refreshToken);
         return data;
       }
@@ -178,6 +180,8 @@ export const loginUserApi = (data: TLoginData) =>
     .then((data) => {
       if (data?.success) {
         setCookie('accessToken', data.accessToken);
+        setCookie('user.email', data.user.email);
+        setCookie('user.name', data.user.name);
         localStorage.setItem('refreshToken', data.refreshToken);
         return data;
       }
@@ -244,5 +248,7 @@ export const logoutApi = () =>
     .then((res) => checkResponse<TServerResponse<{}>>(res))
     .then(() => {
       deleteCookie('accessToken');
+      deleteCookie('user.email');
+      deleteCookie('user.name');
       localStorage.removeItem('refreshToken');
     });

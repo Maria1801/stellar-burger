@@ -18,7 +18,6 @@ import { ProtectedRoute } from '../protected-route';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
 import { getIngredientsThunk } from '../../services/slices/ingredientsSlice';
-import { getUserThunk } from '../../services/slices/userSlice';
 
 const App = () => {
   const location = useLocation();
@@ -27,7 +26,6 @@ const App = () => {
 
   useEffect(() => {
     dispatch(getIngredientsThunk());
-    dispatch(getUserThunk());
   }, [dispatch]);
 
   const histBack = () => {
@@ -44,12 +42,14 @@ const App = () => {
         <Route path='/ingredients/:id' element={<IngredientDetails />} />
         <Route path='*' element={<NotFound404 />} />
 
-        <Route path='/login' element={<Login />} />
-        <Route path='/register' element={<Register />} />
-        <Route path='/forgot-password' element={<ForgotPassword />} />
-        <Route path='/reset-password' element={<ResetPassword />} />
+        <Route element={<ProtectedRoute needAuth={false} />}>
+          <Route path='/login' element={<Login />} />
+          <Route path='/register' element={<Register />} />
+          <Route path='/forgot-password' element={<ForgotPassword />} />
+          <Route path='/reset-password' element={<ResetPassword />} />
+        </Route>
 
-        <Route element={<ProtectedRoute />}>
+        <Route element={<ProtectedRoute needAuth />}>
           <Route path='/profile' element={<Profile />} />
           <Route path='/profile/orders' element={<ProfileOrders />} />
           <Route path='/profile/orders/:number' element={<OrderInfo />} />
@@ -75,7 +75,7 @@ const App = () => {
             }
           />
 
-          <Route element={<ProtectedRoute />}>
+          <Route element={<ProtectedRoute needAuth />}>
             <Route
               path='/profile/orders/:number'
               element={

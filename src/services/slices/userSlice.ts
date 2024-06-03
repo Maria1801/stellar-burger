@@ -10,7 +10,7 @@ import {
   registerUserApi,
   updateUserApi
 } from '../../utils/burger-api';
-import { useNavigate } from 'react-router-dom';
+import { getCookie } from '../../utils/cookie';
 
 export type TUserState = {
   userData: TUser | null;
@@ -20,12 +20,25 @@ export type TUserState = {
   isAuthenticated: boolean;
 };
 
+function loadUser(): TUser | null {
+  const emailL = getCookie('user.email');
+  const nameL = getCookie('user.name');
+  if (emailL != undefined && nameL != undefined) {
+    return {
+      email: emailL,
+      name: nameL
+    };
+  } else {
+    return null;
+  }
+}
+
 export const initialState: TUserState = {
-  userData: null,
+  userData: loadUser(),
   orders: [],
   error: null,
   isLoading: false,
-  isAuthenticated: false
+  isAuthenticated: getCookie('accessToken') != undefined
 };
 
 export const getUserThunk = createAsyncThunk('burgerUser/get', getUserApi);
