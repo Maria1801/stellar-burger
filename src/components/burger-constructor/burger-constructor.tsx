@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   postOrderThunk,
   removeOrder
-} from '../../services/slices/burgerConstructorSlice';
+} from '../../services/slices/burgerConstructorSlice/burgerConstructorSlice';
 import { useNavigate } from 'react-router-dom';
 
 export const BurgerConstructor: FC = () => {

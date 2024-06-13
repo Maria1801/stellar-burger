@@ -17,7 +17,7 @@ import { Routes, Route, useLocation } from 'react-router-dom';
 import { ProtectedRoute } from '../protected-route';
 import { useEffect } from 'react';
 import { useDispatch } from '../../services/store';
-import { getIngredientsThunk } from '../../services/slices/ingredientsSlice';
+import { getIngredientsThunk } from '../../services/slices/ingredientsSlice/ingredientsSlice';
 
 const App = () => {
   const location = useLocation();
