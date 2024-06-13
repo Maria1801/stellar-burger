@@ -1,0 +1,10 @@
+{
+    "success": true,
+    "accessToken": "test-accessToken",
+    "refreshToken": "test-refreshToken",
+    "user": {
+      "email": "g@g.c",
+      "name": "Жак-Ив Кусто"
+    }
+  }
+  

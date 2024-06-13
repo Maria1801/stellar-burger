@@ -5,7 +5,7 @@ import {
   PayloadAction,
   nanoid
 } from '@reduxjs/toolkit';
-import { orderBurgerApi } from '../../utils/burger-api';
+import { orderBurgerApi } from '../../../utils/burger-api';
 
 export type TConstructorState = {
   constructorItems: {
