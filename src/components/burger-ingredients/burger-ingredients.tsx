@@ -1,9 +1,22 @@
 import { useState, useRef, useEffect, FC } from 'react';
 import { useInView } from 'react-intersection-observer';
+import { useSelector } from '../../services/store';
+import { TIngredient, TTabMode } from '@utils-types';
+import { BurgerIngredientsUI } from '../ui/burger-ingredients';
 
-import { TTabMode } from '@utils-types';
+function filterIngredients(
+  ingredients: TIngredient[],
+  type: string
+): TIngredient[] {
+  return ingredients.filter((item) => item.type === type);
+}
 
 export const BurgerIngredients: FC = () => {
+  const { ingredients } = useSelector((store) => store.ingredients);
+  const buns = filterIngredients(ingredients, 'bun');
+  const mains = filterIngredients(ingredients, 'main');
+  const sauces = filterIngredients(ingredients, 'sauce');
+
   const [currentTab, setCurrentTab] = useState<TTabMode>('bun');
   const titleBunRef = useRef<HTMLHeadingElement>(null);
   const titleMainRef = useRef<HTMLHeadingElement>(null);
@@ -31,7 +44,6 @@ export const BurgerIngredients: FC = () => {
     }
   }, [inViewBuns, inViewFilling, inViewSauces]);
 
-  /* В можно лучше: скролл к разделу при клике на таб */
   const onTabClick = (tab: string) => {
     setCurrentTab(tab as TTabMode);
     if (tab === 'bun')
@@ -42,21 +54,19 @@ export const BurgerIngredients: FC = () => {
       titleSaucesRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  // return (
-  //   <BurgerIngredientsUI
-  //     currentTab={currentTab}
-  //     buns={buns}
-  //     mains={mains}
-  //     sauces={sauces}
-  //     titleBunRef={titleBunRef}
-  //     titleMainRef={titleMainRef}
-  //     titleSaucesRef={titleSaucesRef}
-  //     bunsRef={bunsRef}
-  //     mainsRef={mainsRef}
-  //     saucesRef={saucesRef}
-  //     onTabClick={onTabClick}
-  //   />
-  // );
-
-  return null;
+  return (
+    <BurgerIngredientsUI
+      currentTab={currentTab}
+      buns={buns}
+      mains={mains}
+      sauces={sauces}
+      titleBunRef={titleBunRef}
+      titleMainRef={titleMainRef}
+      titleSaucesRef={titleSaucesRef}
+      bunsRef={bunsRef}
+      mainsRef={mainsRef}
+      saucesRef={saucesRef}
+      onTabClick={onTabClick}
+    />
+  );
 };
